@@ -63,9 +63,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         final userModel = snapshot.data!;
 
         return Scaffold(
-          appBar: AppBar(
+          appBar:  AppBar(
+            backgroundColor: ColorManager.secondaryColor,
             centerTitle: true,
-            title: Text(AppStrings.profile,style: AppTextStyle.regular25.copyWith(color: ColorManager.secondaryColor),),
+            title: Text(AppStrings.profile,style: AppTextStyle.regular24.copyWith(color: Colors.white),), // استخدم النص المناسب
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),

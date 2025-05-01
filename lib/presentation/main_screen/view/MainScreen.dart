@@ -26,8 +26,7 @@ class _MainScreenState extends State<MainScreen> {
       create: (context) => getIt<HomeCubit>()..getProducts(),
       child: HomeScreen(),
     ),
-    CartScreen(),
-    WishListScreen(),
+
     ProfileScreen(),
   ];
 
@@ -52,9 +51,19 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
+      body: Builder(
+        builder: (context) {
+          if (_currentIndex == 1) {
+            return const CartScreen();
+          } else if (_currentIndex == 2) {
+            return const WishListScreen();
+          } else {
+            return IndexedStack(
+              index: _currentIndex ,
+              children: _pages,
+            );
+          }
+        },
       ),
     );
   }

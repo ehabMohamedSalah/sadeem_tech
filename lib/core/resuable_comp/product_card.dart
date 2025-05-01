@@ -1,16 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../domain/entity/product_entity.dart';
+import '../firebase/firebase_wishlist.dart';
 import '../utils/color_manager.dart';
 import '../utils/string_manager.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final String? title;
   final String? imgCover;
   final num? price;
   final num? priceAfterDiscount;
   final num? discount;
+  final String productId; // إضافة ID المنتج
   final VoidCallback onTap;
 
   const ProductCard({
@@ -20,8 +22,49 @@ class ProductCard extends StatelessWidget {
     this.price,
     this.priceAfterDiscount,
     this.discount,
+    required this.productId,
     required this.onTap,
   });
+
+  @override
+  _ProductCardState createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isInWishlist = false;
+
+  // التحقق من وجود المنتج في الـ wishlist
+  @override
+  void initState() {
+    super.initState();
+    _checkIfProductInWishlist();
+  }
+
+  Future<void> _checkIfProductInWishlist() async {
+    bool exists = await WishlistFirebaseService.isProductInWishlist(widget.productId);
+    setState(() {
+      isInWishlist = exists;
+    });
+  }
+
+  // إضافة أو إزالة المنتج من الـ wishlist
+  Future<void> _toggleWishlist() async {
+    if (isInWishlist) {
+      await WishlistFirebaseService.removeProductFromWishlist(widget.productId);
+    } else {
+      // تأكد من أن المنتج يحتوي على كل البيانات اللازمة
+      // استخدم الكائن الكامل ProductEntity هنا
+      await WishlistFirebaseService.addProductToWishlist(ProductEntity(
+
+        id: num.tryParse(widget.productId) ?? 0, // تحويل إلى num أو تعيين 0 إذا فشل التحويل
+        title: widget.title,
+        price: widget.price,
+        thumbnail: widget.imgCover,
+
+      ));
+    }
+    _checkIfProductInWishlist(); // التحقق من الحالة بعد التغيير
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +92,7 @@ class ProductCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: CachedNetworkImage(
-                      imageUrl: imgCover ?? "",
+                      imageUrl: widget.imgCover ?? "",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity,
@@ -68,7 +111,7 @@ class ProductCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  title ?? "",
+                  widget.title ?? "",
                   textAlign: TextAlign.left,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -85,13 +128,24 @@ class ProductCard extends StatelessWidget {
                     textDirection: TextDirection.ltr,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        "EGP ${price ?? "0"}",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "EGP ${widget.price ?? "0"}",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              isInWishlist ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: _toggleWishlist,
+                          ),
+                        ],
                       ),
-
                     ],
                   ),
                 ),
@@ -102,7 +156,7 @@ class ProductCard extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(ColorManager.secondaryColor),
                   ),
-                  onPressed:  onTap,
+                  onPressed: widget.onTap,
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Row(
@@ -125,6 +179,8 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
+
+
             ],
           ),
         ),
