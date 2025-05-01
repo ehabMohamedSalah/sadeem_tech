@@ -1,15 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // 👈 لازم الاستيراد ده
+import 'package:sadeem_project/presentation/auth/view/login/login_screen.dart';
+import 'package:sadeem_project/presentation/auth/view/login/register_screen.dart';
 import 'package:sadeem_project/presentation/home_screen.dart';
 import 'core/api/api_manager.dart';
 import 'core/di/di.dart';
 import 'core/observer/observer.dart';
+import 'core/utils/routes_manager.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  Bloc.observer = MyBlocObserver();
+  //Bloc.observer = MyBlocObserver();
   ApiManager.init();
   runApp(const MyApp());
 }
@@ -26,10 +29,14 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const HomeScreen(),
+
           routes: {
+              RouteManager.homeScreen: (context) => HomeScreen(),
+              RouteManager.loginScreen: (context) => LoginScreen(),
+            RouteManager.registerScreen: (context) => RegisterScreen(),
 
           },
+          initialRoute: RouteManager.loginScreen,
         );
       },
     );

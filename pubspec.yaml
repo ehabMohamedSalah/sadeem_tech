@@ -28,6 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # add injectable to your dependencies
+  injectable: ^2.3.2
+  # add get_it
+  get_it: any
   fluttertoast: any
   logger: ^2.5.0
   flutter_screenutil: any
@@ -36,10 +40,9 @@ dependencies:
   flutter_bloc: any
   provider: any
   bloc: any
-  injectable: ^2.5.0
-  build_runner: ^2.4.15
+
   # add get_it
-  get_it:
+
   flutter_svg: any
   dio: any
   image_picker: any
@@ -51,7 +54,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+
 dev_dependencies:
+  # add the generator to your dev_dependencies
+  injectable_generator: any
+  # add build runner if not already added
+  build_runner: any
+  # add the generator to your dev_dependencies
+
   flutter_test:
     sdk: flutter
 
@@ -61,7 +71,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  injectable_generator:
+
 
 
 # For information on the generic Dart part of this file, see the

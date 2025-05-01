@@ -26,14 +26,27 @@ class ApiManager {
     return response;
   }
 
-  Future<Response> postRequest(
-      {required String endpoint,
-        Map<String, dynamic>? body,
-        Map<String, dynamic>? headers}) async {
-    var response = await dio.post(endpoint,
-        data: body, options: Options(headers: headers));
-    return response;
+  Future<Response> postRequest({
+    required String endpoint,
+    Map<String, dynamic>? body,
+  }) async {
+    try {
+      final response = await dio.post(
+        endpoint,
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json', // <-- مهم جدًا
+          },
+        ),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
+
+
 
   Future<Response> put({
     required String endpoint,
