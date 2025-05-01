@@ -1,5 +1,5 @@
 class Constant {
-  static const String tokenKey = 'auth_token';
+  static const String tokenKey = 'userId';
    static const String isRememberMe = 'isRememberMe';
   static const String baseUrl = "https://dummyjson.com";
   static const String regExValidateEmail =
@@ -8,5 +8,6 @@ class Constant {
     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
   );
   static const String questCacheKey = "is_quest";
+
 
 }

@@ -1,12 +1,3 @@
-/// id : 1
-/// username : "kminchelle"
-/// email : "kminchelle@yahoo.com"
-/// firstName : "Jeanne"
-/// lastName : "Halvorson"
-/// gender : "female"
-/// image : "https://robohash.org/autquiaut.png"
-/// token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-
 class LoginEntity {
   LoginEntity({
     this.id,
@@ -16,9 +7,10 @@ class LoginEntity {
     this.lastName,
     this.gender,
     this.image,
-    this.token,});
+    this.token,
+  });
 
-   int? id;
+  int? id;
   String? username;
   String? email;
   String? firstName;
@@ -28,6 +20,30 @@ class LoginEntity {
   String? token;
 
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'gender': gender,
+      'image': image,
+      'token': token,
+    };
+  }
 
 
+  factory LoginEntity.fromJson(Map<String, dynamic> json) {
+    return LoginEntity(
+      id: json['id'],
+      username: json['username'],
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      gender: json['gender'],
+      image: json['image'],
+      token: json['token'],
+    );
+  }
 }

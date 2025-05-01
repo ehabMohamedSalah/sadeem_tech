@@ -1,3 +1,4 @@
 class EndPoint {
-static const LoginEndpoint="/auth/login";
+static const String  LoginEndpoint='/auth/login';
+static const String productsEndpoint="/products";
 }
