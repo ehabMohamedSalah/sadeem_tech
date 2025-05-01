@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadeem_project/core/utils/text_styles.dart';
 import 'package:sadeem_project/domain/entity/product_entity.dart';
 
+import '../../../../../core/firebase/firebase_cart.dart';
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../../core/utils/string_manager.dart';
 
@@ -63,8 +64,14 @@ class ProductDetailsScreen extends StatelessWidget {
               width: double.infinity,
               height: 50.h,
               child: ElevatedButton.icon(
-                onPressed: () {
-
+                onPressed: () async{
+                  await CartFirebaseService.addProductToCart(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${product.title} added to cart!'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
                 label: Text(AppStrings.addtocart, style: const TextStyle(color: Colors.white)),

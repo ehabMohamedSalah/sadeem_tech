@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
           backgroundColor: ColorManager.secondaryColor,
           title:   Text("Products",style: AppTextStyle.regular25.copyWith(color: ColorManager.white),)),
       body: Padding(

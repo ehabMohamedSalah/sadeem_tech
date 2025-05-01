@@ -33,6 +33,7 @@ class AppStrings {
    static const String profile="Profile";
    static const String viewMore="View More Details";
    static const String productDetails="Product Details";
+   static const String cart="Cart";
 
 
 }
