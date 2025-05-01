@@ -41,6 +41,7 @@ centerTitle: true,
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: ProductCard(
+                  productId: product.id?.toString() ?? "",
                   title: product.title,
                   price: product.price,
                   imgCover: product.thumbnail,

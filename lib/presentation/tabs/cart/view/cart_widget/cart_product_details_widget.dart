@@ -82,7 +82,7 @@ class _CartProductDetailsScreenState extends State<CartProductDetailsScreen> {
             Text(product.description ?? "", style: Theme.of(context).textTheme.bodyLarge),
             SizedBox(height: 30.h),
 
-            // 👇 Count Controller
+
             Row(
               children: [
                 IconButton(
