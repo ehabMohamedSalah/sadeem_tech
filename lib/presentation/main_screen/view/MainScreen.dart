@@ -10,7 +10,6 @@ import 'package:sadeem_project/presentation/tabs/home/view_model/home_cubit.dart
 import 'package:sadeem_project/presentation/tabs/profile/view/profile_screen.dart';
 import 'package:sadeem_project/presentation/tabs/wishlist/view/wishlist_screen.dart';
 import '../../../core/utils/color_manager.dart';
-import '../../tabs/profile/provider/profile_provider.dart'; // Import Flutter Icons package
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -29,9 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     ),
     CartScreen(),
     WishListScreen(),
-    ChangeNotifierProvider(
-        create: (context) => SettingProvider(), // Providing SettingProvider at a higher level
-        child: ProfileScreen()),
+    ProfileScreen(),
   ];
 
   @override

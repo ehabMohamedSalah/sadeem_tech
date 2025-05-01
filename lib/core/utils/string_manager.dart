@@ -30,6 +30,9 @@ class AppStrings {
    static const String enterYourEmail = "Enter Your Email";
    static const String addtocart="Add To Cart";
    static const String profileScreen="Profile Screen";
+   static const String profile="Profile";
+   static const String viewMore="View More Details";
+   static const String productDetails="Product Details";
 
 
 }

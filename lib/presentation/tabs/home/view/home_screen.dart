@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadeem_project/core/utils/color_manager.dart';
 import 'package:sadeem_project/core/utils/string_manager.dart';
 import 'package:sadeem_project/core/utils/text_styles.dart';
+import 'package:sadeem_project/presentation/tabs/home/view/widget/product_details_item.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../core/resuable_comp/product_card.dart';
@@ -56,7 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       imgCover: product.thumbnail,
 
                       onTap: () {
-                        // Handle add to cart here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ProductDetailsScreen(product: product,),
+                          ),
+                        );
                       },
                     ),
                   );

@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  firebase_core: ^3.13.0  # or the latest version
+
   # add injectable to your dependencies
   injectable: ^2.3.2
   # add get_it
@@ -35,6 +37,7 @@ dependencies:
   curved_navigation_bar: any
   skeletonizer: ^1.4.3
   fluttertoast: any
+  cloud_firestore: ^5.2.1
   logger: ^2.5.0
   flutter_screenutil: any
   dartz: any

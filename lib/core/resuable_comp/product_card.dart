@@ -115,7 +115,7 @@ class ProductCard extends StatelessWidget {
                         ),
                         SizedBox(width: 10.w),
                         Text(
-                          AppStrings.addtocart,
+                          AppStrings.viewMore,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(color: Colors.white),

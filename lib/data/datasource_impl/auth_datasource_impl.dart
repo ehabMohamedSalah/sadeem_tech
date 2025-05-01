@@ -2,11 +2,12 @@ import 'package:injectable/injectable.dart';
 import 'package:sadeem_project/core/api/api_manager.dart';
 import 'package:sadeem_project/core/api/api_result.dart';
 import 'package:sadeem_project/core/api/endpoints.dart';
+import 'package:sadeem_project/core/constant.dart';
 import 'package:sadeem_project/data/datasource_contract/auth_datasource_contract.dart';
 import 'package:sadeem_project/data/model/auth/login_response/LoginResponse.dart';
 import 'package:sadeem_project/domain/entity/auth_entity/login_entity.dart';
 import '../../core/cache/shared_pref.dart';
-import '../../core/constant.dart';
+import '../../core/firebase/firebase_user_model.dart';
 
 @Injectable(as: AuthDatasource)
 class AuthDatasourceImpl extends AuthDatasource {
@@ -38,16 +39,9 @@ class AuthDatasourceImpl extends AuthDatasource {
 
         var response = LoginResponse.fromJson(apiResponse.data ?? {});
         LoginEntity loginEntity = response.toLoginEntity();
+        await CacheHelper.setData<String>(Constant.tokenKey, loginEntity.id.toString());
 
-        if (response.token != null) {
-          await cacheHelper.setData<String>(
-            Constant.tokenKey,
-            response.token ?? "",
-          );
-          print('Token saved successfully ✅');
-        } else {
-          print('Token not available in response ⛔');
-        }
+        FirebaseFunc.addUser(loginEntity);
 
         return SuccessApiResult(loginEntity);
       } else {
