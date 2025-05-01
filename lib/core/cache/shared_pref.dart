@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../domain/entity/auth_entity/login_entity.dart';
 import '../constant.dart';
 
 @singleton
@@ -23,6 +24,31 @@ class CacheHelper {
     await setData<bool>(Constant.questCacheKey, false);
     log("initialized shared prefs");
   }
+  Future<void> saveUserData(LoginEntity userModel) async {
+    await _sharedPrefs!.setString('user_id', userModel.id.toString());
+    await _sharedPrefs!.setString('user_name', userModel.username ?? '');
+    await _sharedPrefs!.setString('user_email', userModel.email ?? '');
+    await _sharedPrefs!.setString('user_image', userModel.image ?? '');
+  }
+
+  Future<LoginEntity?> getUserData() async {
+    final id = _sharedPrefs!.getString('user_id');
+    final name = _sharedPrefs!.getString('user_name');
+    final email = _sharedPrefs!.getString('user_email');
+    final image = _sharedPrefs!.getString('user_image');
+
+    if (id != null && name != null && email != null) {
+      return LoginEntity(
+        id: int.parse(id),
+        username: name,
+        email: email,
+        image: image,
+      );
+    }
+    return null;
+  }
+
+
 
   Future<void> _ensureInitialized() async {
     if (_sharedPrefs == null) {

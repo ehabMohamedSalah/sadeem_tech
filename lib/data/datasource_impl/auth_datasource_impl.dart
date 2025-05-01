@@ -21,8 +21,7 @@ class AuthDatasourceImpl extends AuthDatasource {
     required String password,
   }) async {
     try {
-      // Properly formatted request for DummyJSON
-      var apiResponse = await apiManager.postRequest(
+       var apiResponse = await apiManager.postRequest(
         endpoint: EndPoint.LoginEndpoint,
 
         body: {

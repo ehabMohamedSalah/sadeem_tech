@@ -28,6 +28,8 @@ class AppStrings {
    static const String forgetPasswordScreen = "Forget password Screen";
    static const String loginSuccessfully = "Login Successfully";
    static const String enterYourEmail = "Enter Your Email";
+   static const String addtocart="Add To Cart";
+   static const String profileScreen="Profile Screen";
 
 
 }

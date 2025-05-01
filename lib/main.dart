@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // 👈 لازم الاستيراد ده
 import 'package:sadeem_project/presentation/auth/view/login/login_screen.dart';
 import 'package:sadeem_project/presentation/auth/view/login/register_screen.dart';
-import 'package:sadeem_project/presentation/home_screen.dart';
+import 'package:sadeem_project/presentation/main_screen/view/MainScreen.dart';
+import 'package:sadeem_project/presentation/tabs/home/view/home_screen.dart';
+import 'package:sadeem_project/presentation/tabs/profile/view/profile_screen.dart';
 import 'core/api/api_manager.dart';
 import 'core/di/di.dart';
 import 'core/observer/observer.dart';
@@ -31,9 +33,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
           routes: {
-              RouteManager.homeScreen: (context) => HomeScreen(),
+            RouteManager.homeScreen: (context) => HomeScreen(),
+            RouteManager.mainScreen: (context) => MainScreen(),
               RouteManager.loginScreen: (context) => LoginScreen(),
             RouteManager.registerScreen: (context) => RegisterScreen(),
+            RouteManager.profileScreen: (context) => ProfileScreen(),
 
           },
           initialRoute: RouteManager.loginScreen,

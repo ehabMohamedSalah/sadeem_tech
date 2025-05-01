@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         body: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
+
               Navigator.pushNamedAndRemoveUntil(
                   context, RouteManager.homeScreen, (_) => false);
               toastMessage(

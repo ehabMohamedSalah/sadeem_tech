@@ -32,6 +32,8 @@ dependencies:
   injectable: ^2.3.2
   # add get_it
   get_it: any
+  curved_navigation_bar: any
+  skeletonizer: ^1.4.3
   fluttertoast: any
   logger: ^2.5.0
   flutter_screenutil: any
