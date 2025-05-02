@@ -26,6 +26,7 @@ class ProductEntity {
     this.meta,
     this.images,
     this.thumbnail,
+    this.keywords,
   });
 
   num? id;
@@ -50,6 +51,7 @@ class ProductEntity {
   Meta? meta;
   List<String>? images;
   String? thumbnail;
+  List<String>? keywords;
 
   // From JSON
   factory ProductEntity.fromJson(Map<String, dynamic> json) {
@@ -80,6 +82,7 @@ class ProductEntity {
       meta: json['meta'] != null ? Meta.fromJson(json['meta']) : null,
       images: json['images'] != null ? List<String>.from(json['images']) : null,
       thumbnail: json['thumbnail'],
+      keywords: json['keywords'] != null ? List<String>.from(json['keywords']) : null, // Parse `keywords`
     );
   }
 
@@ -110,6 +113,7 @@ class ProductEntity {
       'meta': meta?.toJson(),
       'images': images,
       'thumbnail': thumbnail,
+      'keywords': keywords,
     };
   }
 }

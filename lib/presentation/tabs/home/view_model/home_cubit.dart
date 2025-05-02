@@ -1,3 +1,4 @@
+// home_cubit.dart
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -11,25 +12,45 @@ part 'home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
-  ProductUsecase productUsecase;
+  final ProductUsecase productUsecase;
   HomeCubit(this.productUsecase) : super(HomeInitial());
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getProducts()async{
+  List<ProductEntity> allProducts = [];
+  String selectedCategory = "all";
+  bool sortByPriceAsc = true;
+
+  Future<void> getProducts() async {
     emit(ProductsLoadingState());
 
-    var result=await productUsecase.call();
+    var result = await productUsecase.call();
     switch (result) {
       case SuccessApiResult():
-        emit(ProductsSuccessState( result.data??[]));
+        allProducts = result.data ?? [];
+        emit(ProductsSuccessState(allProducts));
         break;
       case ErrorApiResult():
-        emit(ProductsErrorState(  result.exception.toString()));
-        print("=========================================================");
-
-        print(result.exception.toString());
+        emit(ProductsErrorState(result.exception.toString()));
         break;
     }
   }
+
+  List<ProductEntity> filterAndSortProducts({
+    required String keyword,
+    String category = "all",
+    bool sortAsc = true,
+  }) {
+    List<ProductEntity> filtered = allProducts.where((product) {
+      final matchesKeyword = product.title!.toLowerCase().contains(keyword.toLowerCase());
+      final matchesCategory = category == "all" || product.category == category;
+      return matchesKeyword && matchesCategory;
+    }).toList();
+
+    filtered.sort((a, b) => sortAsc
+        ? (a.price ?? 0).compareTo(b.price ?? 0)
+        : (b.price ?? 0).compareTo(a.price ?? 0));
+    return filtered;
+  }
 }
+

@@ -22,12 +22,13 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-     BlocProvider(
+    BlocProvider(
       create: (context) => getIt<HomeCubit>()..getProducts(),
-      child: HomeScreen(),
+      child: const HomeScreen(),
     ),
-
-    ProfileScreen(),
+    const CartScreen(),
+    const WishListScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -39,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
         index: _currentIndex,
         backgroundColor: ColorManager.white,
         color: ColorManager.secondaryColor,
-        items: <Widget>[
+        items: const <Widget>[
           Icon(Icons.home, color: Colors.white, size: 30),
           Icon(Icons.shopping_bag_sharp, color: Colors.white, size: 30),
           Icon(Icons.menu, color: Colors.white, size: 30),
@@ -51,20 +52,9 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
       ),
-      body: Builder(
-        builder: (context) {
-          if (_currentIndex == 1) {
-            return const CartScreen();
-          } else if (_currentIndex == 2) {
-            return const WishListScreen();
-          } else {
-            return IndexedStack(
-              index: _currentIndex ,
-              children: _pages,
-            );
-          }
-        },
-      ),
+      body:
+      _pages[_currentIndex],
+
     );
   }
 }
